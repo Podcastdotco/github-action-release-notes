@@ -1,0 +1,28 @@
+name: 'Get Git Log Action'
+description: 'Get git log from specify git tag to the present'
+author: "podcast.co development"
+branding:
+  icon: "terminal"
+  color: gray-dark
+inputs:
+  tag:
+    description: 'Specify git tag, use last tag otherwise'
+    required: false
+  logFormat:
+    description: 'Specify log line format'
+    required: false
+    default: "- %h %s"
+  dateFormat:
+    description: 'Specify date format if used in the log'
+    required: false
+    default: "%Y-%m-%d %H:%M:%S"
+outputs:
+  log:
+    description: 'git logs'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.tag }}
+    - ${{ inputs.logFormat }}
+    - ${{ inputs.dateFormat }}
