@@ -3,13 +3,12 @@
 if [[ -z "${TAG}" ]]; then TAG="${INPUT_TAG}"; fi
 if [[ -z "${LOG_FORMAT}" ]]; then LOG_FORMAT="${INPUT_LOGFORMAT}"; fi
 if [[ -z "${DATE_FORMAT}" ]]; then DATE_FORMAT="${INPUT_DATEFORMAT}"; fi
-
+ls -l
 if [[ -z $(git tag --list) ]]; then
    echo "Repository do not have any tags"
    exit 1
 fi
 
-ls -l
 
 if [[ -z "${TAG}" ]]; then
   TAG=$(git describe --abbrev=0 --tags)
