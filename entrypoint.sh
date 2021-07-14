@@ -9,7 +9,6 @@ if [[ -z $(git tag --list) ]]; then
    exit 1
 fi
 
-
 if [[ -z "${TAG}" ]]; then
   TAG=$(git describe --abbrev=0 --tags)
 fi
@@ -20,7 +19,10 @@ if [[ -z "${TAG}" ]]; then
 fi
 
 echo "tag is $TAG"
-log=$(git log $TAG.. --pretty=format:"$LOG_FORMAT" --date=format:"$DATE_FORMAT")
+LOG=$(git log $TAG.. --pretty=format:"$LOG_FORMAT" --date=format:"$DATE_FORMAT")
+CHANGELOG="${LOG//'%'/'%25'}"
+CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
 
-echo "$log"
-echo ::set-output name=log::"$log"
+echo "$LOG"
+echo ::set-output name=log::"$CHANGELOG"
